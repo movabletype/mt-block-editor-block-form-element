@@ -103,6 +103,10 @@ class Textarea extends Block {
     return this.metadataByOwnKeys();
   }
 
+  public keysForSetup(): string[] {
+    return ["blockElement", "formatter"];
+  }
+
   public editor({ focus, focusBlock }: EditorOptions): JSX.Element {
     return focus || focusBlock ? (
       <Editor key={this.id} block={this} />

@@ -84,6 +84,10 @@ class Input extends Block {
     return this.metadataByOwnKeys();
   }
 
+  public keysForSetup(): string[] {
+    return ["blockElement"];
+  }
+
   public editor({ focus, focusBlock }: EditorOptions): JSX.Element {
     return focus || focusBlock ? (
       <Editor key={this.id} block={this} />
