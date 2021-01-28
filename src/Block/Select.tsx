@@ -109,6 +109,10 @@ class Select extends Block {
     return data;
   }
 
+  public keysForSetup(): string[] {
+    return ["blockElement", "options"];
+  }
+
   private optionItems(): string[] {
     return this.options.split("\n").filter((o) => o !== "");
   }
