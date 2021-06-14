@@ -53,8 +53,6 @@
     "webpack-dev-server": "^3.11.0"
   },
   "dependencies": {
-    "@babel/runtime": "^7.12.5",
-    "a-table": "^1.4.18",
     "core-js": "^3.8.1"
   }
 }
