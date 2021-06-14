@@ -90,6 +90,10 @@ class Textarea extends Block {
     }
   }
 
+  public placeholderLabel(): string {
+    return t("Text");
+  }
+
   public formattedText(): string | Array<string | JSX.Element> {
     switch (this.formatter) {
       case "nl2br":
@@ -116,7 +120,11 @@ class Textarea extends Block {
   }
 
   public html(): JSX.Element {
-    return <Html key={this.id} block={this} />;
+    if (this.text !== "") {
+      return <Html key={this.id} block={this} />;
+    } else {
+      return this.placeholder();
+    }
   }
 
   public static async newFromHtml({

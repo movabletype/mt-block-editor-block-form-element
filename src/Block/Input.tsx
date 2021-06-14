@@ -97,7 +97,11 @@ class Input extends Block {
   }
 
   public html(): JSX.Element {
-    return <Html key={this.id} block={this} />;
+    if (this.text !== "") {
+      return <Html key={this.id} block={this} />;
+    } else {
+      return this.placeholder();
+    }
   }
 
   public static async newFromHtml({
