@@ -30,7 +30,7 @@ const Editor: React.FC<EditorProps> = blockProperty(
       <BlockSetup block={block}>
         <label className="mt-be-label-name">
           <div>{t("Block Element")}</div>
-          <select name="blockElement">
+          <select className="mt-be-input" name="blockElement">
             <option value="">{t("None")}</option>
             <option value="p">P</option>
             <option value="h1">H1</option>
@@ -46,7 +46,7 @@ const Editor: React.FC<EditorProps> = blockProperty(
       <BlockSetup block={block}>
         <label className="mt-be-label-name">
           <div>{t("Formatter")}</div>
-          <select name="formatter">
+          <select className="mt-be-input" name="formatter">
             <option value="none">{t("None")}</option>
             <option value="nl2br">{t("Convert Breaks")}</option>
           </select>
@@ -90,6 +90,10 @@ class Textarea extends Block {
     }
   }
 
+  public placeholderLabel(): string {
+    return t("Text");
+  }
+
   public formattedText(): string | Array<string | JSX.Element> {
     switch (this.formatter) {
       case "nl2br":
@@ -116,7 +120,11 @@ class Textarea extends Block {
   }
 
   public html(): JSX.Element {
-    return <Html key={this.id} block={this} />;
+    if (this.text !== "") {
+      return <Html key={this.id} block={this} />;
+    } else {
+      return this.placeholder();
+    }
   }
 
   public static async newFromHtml({

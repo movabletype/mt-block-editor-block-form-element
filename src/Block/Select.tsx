@@ -29,7 +29,7 @@ const Editor: React.FC<EditorProps> = blockProperty(
       <BlockSetup block={block}>
         <label className="mt-be-label-name">
           <div>{t("Block Element")}</div>
-          <select name="blockElement">
+          <select className="mt-be-input" name="blockElement">
             <option value="">{t("None")}</option>
             <option value="p">P</option>
             <option value="h1">H1</option>
@@ -45,11 +45,18 @@ const Editor: React.FC<EditorProps> = blockProperty(
       <BlockSetup block={block}>
         <label className="mt-be-label-name">
           <div>{t("Options")}</div>
-          <textarea name="options" style={{ width: "100%" }}></textarea>
+          <textarea
+            className="mt-be-input mt-be-input--full-width"
+            name="options"
+          ></textarea>
         </label>
       </BlockSetup>
       <BlockLabel block={block}>
-        <select name="text" data-mt-block-editor-focus-default>
+        <select
+          className="mt-be-input"
+          name="text"
+          data-mt-block-editor-focus-default
+        >
           {block.optionElements()}
         </select>
       </BlockLabel>
@@ -131,7 +138,11 @@ class Select extends Block {
   }
 
   public html(): JSX.Element {
-    return <Html key={this.id} block={this} />;
+    if (this.text !== "") {
+      return <Html key={this.id} block={this} />;
+    } else {
+      return this.placeholder();
+    }
   }
 
   public static async newFromHtml({
