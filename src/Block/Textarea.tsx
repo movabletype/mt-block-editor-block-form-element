@@ -114,17 +114,15 @@ class Textarea extends Block {
   public editor({ focus, focusBlock }: EditorOptions): JSX.Element {
     return focus || focusBlock ? (
       <Editor key={this.id} block={this} />
-    ) : (
+    ) : this.text !== "" ? (
       this.html()
+    ) : (
+      this.placeholder()
     );
   }
 
   public html(): JSX.Element {
-    if (this.text !== "") {
-      return <Html key={this.id} block={this} />;
-    } else {
-      return this.placeholder();
-    }
+    return <Html key={this.id} block={this} />;
   }
 
   public static async newFromHtml({
