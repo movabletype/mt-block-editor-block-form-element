@@ -1,11 +1,17 @@
 import i18n from "mt-block-editor-block/i18n";
-import { locales } from "../i18next-parser.config";
+
+const translations = import.meta.glob<{ default: Record<string, string> }>(
+  "./locales/*/translation.json",
+  { eager: true, import: "default" }
+);
 
 i18n.on("initialized", () => {
-  locales.forEach((lang) => {
-    // eslint-disable-next-line @typescript-eslint/no-var-requires
-    const l = require(`./locales/${lang}/translation.json`);
-    i18n.addResources(lang, "translation", l);
+  Object.entries(translations).forEach(([path, translation]) => {
+    const match = path.match(/\.\/locales\/([^/]+)\/translation\.json/);
+    if (match) {
+      const lang = match[1];
+      i18n.addResources(lang, "translation", translation);
+    }
   });
 });
 

@@ -1,3 +1,4 @@
+import type { JSX } from "react";
 import { t } from "../i18n";
 import React from "mt-block-editor-block/React";
 import { blockProperty } from "mt-block-editor-block/decorator";

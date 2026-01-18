@@ -1,5 +1,6 @@
 import { t } from "../i18n";
 import React from "mt-block-editor-block/React";
+import type { JSX } from "mt-block-editor-block/jsx-runtime";
 import { blockProperty } from "mt-block-editor-block/decorator";
 import {
   BlockSetupCommon,
