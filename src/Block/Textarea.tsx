@@ -30,7 +30,7 @@ const Editor: React.FC<EditorProps> = blockProperty(
       <BlockSetup block={block}>
         <label className="mt-be-label-name">
           <div>{t("Block Element")}</div>
-          <select className="mt-be-input" name="blockElement">
+          <select className="mt-be-input" data-property-name="blockElement">
             <option value="">{t("None")}</option>
             <option value="p">P</option>
             <option value="h1">H1</option>
@@ -46,7 +46,7 @@ const Editor: React.FC<EditorProps> = blockProperty(
       <BlockSetup block={block}>
         <label className="mt-be-label-name">
           <div>{t("Formatter")}</div>
-          <select className="mt-be-input" name="formatter">
+          <select className="mt-be-input" data-property-name="formatter">
             <option value="none">{t("None")}</option>
             <option value="nl2br">{t("Convert Breaks")}</option>
           </select>
@@ -54,7 +54,7 @@ const Editor: React.FC<EditorProps> = blockProperty(
       </BlockSetup>
       <BlockLabel block={block}>
         <textarea
-          name="text"
+          data-property-name="text"
           className="mt-be-input mt-be-input--full-width"
           data-mt-block-editor-focus-default
         />
@@ -114,17 +114,15 @@ class Textarea extends Block {
   public editor({ focus, focusBlock }: EditorOptions): JSX.Element {
     return focus || focusBlock ? (
       <Editor key={this.id} block={this} />
-    ) : (
+    ) : this.text !== "" ? (
       this.html()
+    ) : (
+      this.placeholder()
     );
   }
 
   public html(): JSX.Element {
-    if (this.text !== "") {
-      return <Html key={this.id} block={this} />;
-    } else {
-      return this.placeholder();
-    }
+    return <Html key={this.id} block={this} />;
   }
 
   public static async newFromHtml({
