@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ja">
   <head>
     <meta charset="UTF-8" />
@@ -22,7 +22,7 @@
   </head>
   <body>
     <div>
-      <form style="margin-top: 50px;">
+      <form style="margin-top: 50px">
         <textarea id="body"></textarea>
         <input type="submit" id="submit" />
         <input type="reset" id="reset" />
@@ -36,29 +36,35 @@
     </div>
     <link
       rel="stylesheet"
-      href="https://cdn.movabletype.net/libs/mt-block-editor/1.1.14/mt-block-editor.css"
+      href="https://cdn.movabletype.net/libs/mt-block-editor/branch/retire-webpack/mt-block-editor.css"
     />
-    <script src="https://cdn.movabletype.net/libs/mt-block-editor/1.1.14/mt-block-editor.js"></script>
-    <script src="./dist/mt-block-editor-block-form-element.js"></script>
-    <script>
+    <script
+      src="https://cdn.movabletype.net/libs/mt-block-editor/branch/retire-webpack/mt-block-editor.js"
+      type="module"
+    ></script>
+    <script
+      src="./dist/mt-block-editor-block-form-element.js"
+      type="module"
+    ></script>
+    <script type="module">
       MTBlockEditor.apply({
         mode: sessionStorage.getItem("MTBlockEditorMode") || "composition",
         id: "body",
         stylesheets: [],
         i18n: {
-          lng: 'ja',
-        }
-      }).then(ed => {
-        ed.on("initializeBlocks", ({blocks}) => {
+          lng: "ja",
+        },
+      }).then((ed) => {
+        ed.on("initializeBlocks", ({ blocks }) => {
           console.log(blocks);
         });
       });
 
       document
         .getElementById("submit")
-        .form.addEventListener("submit", function(ev) {
+        .form.addEventListener("submit", function (ev) {
           ev.preventDefault();
-          MTBlockEditor.serialize().then(function() {
+          MTBlockEditor.serialize().then(function () {
             console.log("serialized");
             sessionStorage.setItem(
               "MTBlockEditorBody",
@@ -67,25 +73,30 @@
           });
         });
 
-      document.getElementById("reset").addEventListener("click", function(ev) {
+      document.getElementById("reset").addEventListener("click", function (ev) {
         ev.preventDefault();
         sessionStorage.setItem("MTBlockEditorBody", "");
         location.reload();
       });
 
-      document.getElementById("unload").addEventListener("click", function(ev) {
-        ev.preventDefault();
-        MTBlockEditor.unload({ id: "body" });
-      });
+      document
+        .getElementById("unload")
+        .addEventListener("click", function (ev) {
+          ev.preventDefault();
+          MTBlockEditor.unload({ id: "body" });
+        });
 
-      document.getElementById("toggle-mode").addEventListener("click", function(ev) {
-        ev.preventDefault();
+      document
+        .getElementById("toggle-mode")
+        .addEventListener("click", function (ev) {
+          ev.preventDefault();
 
-        const cur = sessionStorage.getItem("MTBlockEditorMode") || "composition";
-        const next = cur === "composition" ? "setup" : "composition";
-        sessionStorage.setItem("MTBlockEditorMode", next);
-        location.reload();
-      });
+          const cur =
+            sessionStorage.getItem("MTBlockEditorMode") || "composition";
+          const next = cur === "composition" ? "setup" : "composition";
+          sessionStorage.setItem("MTBlockEditorMode", next);
+          location.reload();
+        });
     </script>
   </body>
 </html>
